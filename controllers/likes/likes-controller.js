@@ -1,7 +1,4 @@
-//import React from 'react';
-import * as likesDao from './likes-dao.js'
-import * as booksDao from './books-dao.js';
-// import { useParams } from "r"
+import * as likesDao from './likes-dao.js';
 
 const LikesController = (app) => {
     const userLikesAuthor = async (req, res) => {
@@ -14,12 +11,19 @@ const LikesController = (app) => {
     const userLikesNovel = async (req, res) => {
         const userId = req.params.uid;
         const novelId = req.params.nid;
-        const like = await likesDao.userLikesAuthor(userId, novelId);
+        const like = await likesDao.userLikesNovel(userId, novelId);
         console.log(like);
         res.json(like);
     }
-    app.post("/api/users/:uid/likes/author/:authorName", userLikesAuthor);
-    app.post("/api/users/:uid/likes/novel/:nid", userLikesAuthor);
+
+    const findLikesByUserId = async (req, res) => {
+        const userId = req.params.uid;
+        const likes = await likesDao.findLikesByUserId(userId);
+        res.json(likes);
+    }
+    app.post("/api/users/:uid/likes/authors/:authorName", userLikesAuthor);
+    app.post("/api/users/:uid/likes/novels/:nid", userLikesNovel);
+    app.get("/api/users/:uid/likes");
 }
 
 export default LikesController;

@@ -29,7 +29,11 @@ const UsersController = (app) => {
     const updateUser = async (req, res) => {
         const id = req.params.id;
         const user = req.body;
-        const status = await usersDao.updateUser(id, user);
+        //const currentUser = req.session["currentUser"];
+        // if (id === currentUser._id) {
+        //     req.session["currentUser"] = {...currentUser, ...user};
+        // }
+        const status = await usersDao.updateUser(id, req.body);
         res.json(status);
     }
 
@@ -72,15 +76,15 @@ const UsersController = (app) => {
     }
 
     app.get('/api/users', findAllUsers);
-    // app.get('/api/users/:id', findUserById);
+    app.get('/api/users/profileId/:profileId', findUserById);
     app.delete('/api/users/:id', deleteUserById);
     app.post('/api/users', createUser);
     app.put('/api/users/:id', updateUser);
 
     app.post('/api/users/login', login);
     app.post('/api/users/register', register);
-    app.get('/api/users/logout', logout);
-    app.post('/api/users/profile', profile);
+    app.post('/api/users/logout', logout);
+    app.get('/api/users/profile', profile);
     // app.get('/api/users/profile/update', updateProfile);
 }
 

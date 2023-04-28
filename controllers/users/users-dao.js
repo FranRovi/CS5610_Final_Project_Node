@@ -7,7 +7,9 @@ export const findAllUsers = async () => {
 };
 
 export const findUserById = async (id) => {
-    const user = await usersModel.findUserById(id);
+    console.log('findUserById === [1]')
+    console.log(id);
+    const user = await usersModel.findById(id);
     return user;
 };
 
@@ -41,7 +43,13 @@ export const createUser = async (user) => {
 };
 
 export const updateUser = async (id, user) => {
+    console.log('updateUser === [1]')
+    console.log(id);
+    console.log(user);
     const status = await usersModel.updateOne({ _id: id}, user);
+    // console.log(updateStatus);
+    console.log(status);
+    return status;
 };
 
 export const deleteUser = async (id) => {

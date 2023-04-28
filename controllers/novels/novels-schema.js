@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 
-const booksSchema = new mongoose.Schema({
+const novelsSchema = new mongoose.Schema({
     userId: String,
     novelId: String,
+    novelName: String,
 }, {collection: "novels"});
 
-export default booksSchema;
+export default novelsSchema;
